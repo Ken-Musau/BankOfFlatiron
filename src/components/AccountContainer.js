@@ -3,12 +3,23 @@ import TransactionsList from "./TransactionsList";
 import Search from "./Search";
 import AddTransactionForm from "./AddTransactionForm";
 
-function AccountContainer() {
+function AccountContainer({
+  transactions,
+  changeHandler,
+  submitHandler,
+  deleteHandler,
+}) {
   return (
     <div>
       <Search />
-      <AddTransactionForm />
-      <TransactionsList />
+      <AddTransactionForm
+        changeHandler={changeHandler}
+        submitHandler={submitHandler}
+      />
+      <TransactionsList
+        transactions={transactions}
+        deleteHandler={deleteHandler}
+      />
     </div>
   );
 }
