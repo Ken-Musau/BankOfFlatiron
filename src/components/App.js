@@ -74,10 +74,10 @@ function App() {
   };
 
   const onSearchHandler = (e) => {
-    const searchTerm = e.target.value.toLowerCase(); // Convert search term to lowercase
+    const searchTerm = e.target.value.toLowerCase(); 
     const filteredTransactions = originalTransactions.filter(
       (transaction) =>
-        transaction.description.toLowerCase().includes(searchTerm) // Convert description to lowercase
+        transaction.description.toLowerCase().includes(searchTerm) 
     );
     setTransactions(searchTerm ? filteredTransactions : originalTransactions);
   };
