@@ -7,11 +7,12 @@ function AccountContainer({
   transactions,
   changeHandler,
   submitHandler,
+  searchHandler,
   deleteHandler,
 }) {
   return (
     <div>
-      <Search />
+      <Search searchHandler={searchHandler} />
       <AddTransactionForm
         changeHandler={changeHandler}
         submitHandler={submitHandler}

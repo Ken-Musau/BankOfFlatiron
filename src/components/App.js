@@ -3,6 +3,7 @@ import AccountContainer from "./AccountContainer";
 
 function App() {
   const [transactions, setTransactions] = useState([]);
+  const [originalTransactions, setOriginalTransactions] = useState([]); // return original list of transaction when searchquery is cleared
   const [formData, setFormData] = useState({
     date: "",
     description: "",
@@ -28,6 +29,7 @@ function App() {
       const res = await fetch(base_url);
       const transactionsFetched = await res.json();
       setTransactions(transactionsFetched);
+      setOriginalTransactions(transactionsFetched);
     } catch (error) {
       console.log(error);
     }
@@ -40,8 +42,9 @@ function App() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(PostFormData),
       });
-      const postedTrasaction = await res.json();
-      setTransactions([...transactions, postedTrasaction]);
+      const postedTransaction = await res.json();
+      setTransactions([...transactions, postedTransaction]);
+      setOriginalTransactions([...originalTransactions, postedTransaction]);
     } catch (error) {
       console.log(error);
     }
@@ -55,18 +58,29 @@ function App() {
       setTransactions(
         transactions.filter((transaction) => transaction.id !== id)
       );
+      setOriginalTransactions(
+        originalTransactions.filter((transaction) => transaction.id !== id)
+      );
     } catch (error) {
       console.log(error);
     }
   }
 
   const onChangeHandler = (e) => {
-    setFormData({
-      ...formData,
+    setFormData((prevFormData) => ({
+      ...prevFormData,
       [e.target.name]: e.target.value,
-    });
+    }));
   };
 
+  const onSearchHandler = (e) => {
+    const searchTerm = e.target.value.toLowerCase(); // Convert search term to lowercase
+    const filteredTransactions = originalTransactions.filter(
+      (transaction) =>
+        transaction.description.toLowerCase().includes(searchTerm) // Convert description to lowercase
+    );
+    setTransactions(searchTerm ? filteredTransactions : originalTransactions);
+  };
   const onSubmitHandler = (e) => {
     e.preventDefault();
     postTransaction();
@@ -86,6 +100,7 @@ function App() {
         transactions={transactions}
         changeHandler={onChangeHandler}
         submitHandler={onSubmitHandler}
+        searchHandler={onSearchHandler}
         deleteHandler={onDeleteHandler}
       />
     </div>
