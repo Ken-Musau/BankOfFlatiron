@@ -66,6 +66,7 @@ function App() {
     }
   }
 
+  // Keep truck of changes in transaction inputs
   const onChangeHandler = (e) => {
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -80,6 +81,7 @@ function App() {
     );
     setTransactions(searchTerm ? filteredTransactions : originalTransactions);
   };
+
   const onSubmitHandler = (e) => {
     e.preventDefault();
     postTransaction();
@@ -110,7 +112,7 @@ function App() {
     setTransactions(sortedTransactions);
   };
 
-  // const isFormEmpty = Object.values(formData).some((value) => value === "");
+
 
   return (
     <div className="ui raised segment">
