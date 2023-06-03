@@ -10,6 +10,7 @@ function AccountContainer({
   deleteHandler,
   sortByCategory,
   sortByDescription,
+  formData,
 }) {
   return (
     <div>
@@ -26,6 +27,7 @@ function AccountContainer({
       <AddTransactionForm
         changeHandler={changeHandler}
         submitHandler={submitHandler}
+        formData={formData}
       />
       <TransactionsList
         transactions={transactions}

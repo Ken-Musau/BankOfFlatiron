@@ -83,6 +83,12 @@ function App() {
   const onSubmitHandler = (e) => {
     e.preventDefault();
     postTransaction();
+    setFormData({
+      date: "",
+      description: "",
+      category: "",
+      amount: "",
+    });
   };
 
   const onDeleteHandler = (id) => {
@@ -104,6 +110,8 @@ function App() {
     setTransactions(sortedTransactions);
   };
 
+  // const isFormEmpty = Object.values(formData).some((value) => value === "");
+
   return (
     <div className="ui raised segment">
       <div className="ui segment violet inverted">
@@ -117,6 +125,7 @@ function App() {
         deleteHandler={onDeleteHandler}
         sortByCategory={sortTransactionsByCategoryHandler}
         sortByDescription={sortTransactionsByDescriptionHandler}
+        formData={formData}
       />
     </div>
   );
